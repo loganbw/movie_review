@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{'/webjars/bootstrap/3.37-1/css/bootstrap.min.css'}"/>
+
+</head>
+<body>
+<h1>Add your movie!</h1>
+<form th:action="@{'/add/'}"  th:object="${movie}" method="post">
+    <input type="text" th:field="*{title}" placeholder="Title"/>
+    <input type="text" th:field="*{genre}" placeholder="Add the genre"/>
+    <input type="text" th:field="*{imbdlink}" placeholder="add an IMBD Link if your movie has one!"/>
+    <input type="text" th:field="*{releasedate}" placeholder="Add the release date"/>
+    <input type="submit" value="submit"/>
+</form>
+</body>
+</html>

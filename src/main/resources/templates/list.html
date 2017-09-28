@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Rotten Potato</title>
+    <link rel="stylesheet" th:href="@{'/webjars/bootstrap/3.37-1/css/bootstrap.min.css'}"/>
+</head>
+<body>
+<div class="container">
+<header>
+   <h1>Rotten Potato</h1>
+</header>
+<h2>Movie List!</h2>
+<div class="list">
+    <div th:each=" movies : ${movies}">
+        <div class="movie">
+            <div th:text="${movies.title}"></div>
+            <div th:text="${movies.genre}"></div>
+            <div><a th:href="${movies.imbdlink}">IMBD Link!</a></div>
+            <div th:text="${movies.releasedate}"></div>
+            <form th:action="@{'/info/' + ${movies.id}}">
+                <input type="submit"  class="btn btn-info" value="Details"/>
+            </form>
+            <form th:action="@{'/upVoted/' + ${movies.id}}" method="post">
+                <input type="submit" class="btn btn-success" value="+"/>
+            </form>
+            <form th:action="@{'/downVoted/' + ${movies.id}}" method="post">
+                <input type="submit" class="btn btn-danger" value="-"/>
+            </form>
+        </div>
+    </div>
+
+</div>
+    <footer>
+        <span>Dont see your movie? <a href="/add">Add one!</a></span>
+    </footer>
+</div>
+</body>
+</html>
