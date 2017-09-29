@@ -21,12 +21,7 @@
             <form th:action="@{'/info/' + ${movies.id}}">
                 <input type="submit"  class="btn btn-info" value="Details"/>
             </form>
-            <form th:action="@{'/upVoted/' + ${movies.id}}" method="post">
-                <input type="submit" class="btn btn-success" value="+"/>
-            </form>
-            <form th:action="@{'/downVoted/' + ${movies.id}}" method="post">
-                <input type="submit" class="btn btn-danger" value="-"/>
-            </form>
+            <a href="/review" class="btn btn-success">Leave a Review of the movie!</a>
         </div>
     </div>
 

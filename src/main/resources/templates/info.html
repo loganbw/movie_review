@@ -10,12 +10,13 @@
 
 <h1 th:text="${movie.title}"></h1>
 
-<form th:action="@{'/update/' + ${movie.id}}" method="post">
-    <input type="text" th:value="${movie.genre}"/>
+<form th:action="@{'/update/' + ${movie.id}}" th:object="${movie}" method="post">
+    <input type="hidden" th:field="*{title}" />
+    <input type="text" th:field="*{genre}"/>
     <br/>
-    <input type="text" th:value="${movie.imbdlink}" />
+    <input type="text" th:field="*{imbdlink}" />
     <br/>
-    <input type="text" th:value="${movie.releasedate}" />
+    <input type="text" th:field="*{releasedate}" />
     <br/>
     <input type="submit"  class="btn btn-warning" value="Update this movie"/>
 </form>

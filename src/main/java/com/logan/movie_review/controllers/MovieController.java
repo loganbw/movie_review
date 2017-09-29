@@ -2,6 +2,7 @@ package com.logan.movie_review.controllers;
 
 import com.logan.movie_review.dao.MovieDao;
 import com.logan.movie_review.models.Movie;
+import com.logan.movie_review.models.Review;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,12 +38,14 @@ public class MovieController {
         model.addAttribute("movie", findMovie);
         return "info";
     }
-    @RequestMapping(value = "/update/{movieId}", method = RequestMethod.POST)
-    public String update(Model model,
-                         @PathVariable("movieId") long movieId){
-        Movie updateMovie = new Movie();
-        model.addAttribute("movie", updateMovie);
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    public String update(@ModelAttribute Movie updateMovie){
         movieDao.save(updateMovie);
         return "redirect:/";
+    }
+    @RequestMapping(value = "/review")
+    public String reviewpage(Model model){
+        model.addAttribute("reviews" , new Review());
+        return "review";
     }
 }
