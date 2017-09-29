@@ -1,18 +1,31 @@
 package com.logan.movie_review.models;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "reviews")
 public class Review {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     private  String nameofuser;
-    private String movietitle;
     private int rating;
     private int age;
     private String gender;
     private String occupation;
+
+    @ManyToOne
+    @JoinColumn(name = "movie_id")
+    private Movie movie;
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
 
     public long getId() {
         return id;
@@ -30,13 +43,6 @@ public class Review {
         this.nameofuser = nameofuser;
     }
 
-    public String getMovietitle() {
-        return movietitle;
-    }
-
-    public void setMovietitle(String movietitle) {
-        this.movietitle = movietitle;
-    }
 
     public int getRating() {
         return rating;

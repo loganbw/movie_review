@@ -21,7 +21,8 @@
             <form th:action="@{'/info/' + ${movies.id}}">
                 <input type="submit"  class="btn btn-info" value="Details"/>
             </form>
-            <a href="/review" class="btn btn-success">Leave a Review of the movie!</a>
+
+            <a th:href="@{'/review/' + ${movies.id}}" class="btn btn-success">Leave a Review of the movie!</a>
         </div>
     </div>
 
