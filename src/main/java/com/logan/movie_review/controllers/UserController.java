@@ -34,7 +34,7 @@ public class UserController {
         String encryptedPassword = bCryptPasswordEncoder.encode(user.getPassword());
         user.setPassword(encryptedPassword);
         user.setRole(userRole);
-
+        user.setActive(true);
         userDao.save(user);
         return "redirect:/login";
     }

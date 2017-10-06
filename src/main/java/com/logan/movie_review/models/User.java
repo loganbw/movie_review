@@ -22,9 +22,9 @@ public class User implements UserDetails {
 
     private boolean active;
 
-
-    //secrets will eventally fk to us, so we want
-    //a way to get them at some point
+    @ManyToOne
+    @JoinColumn(name = "review_id")
+    private Review review;
 
     @ManyToOne
     @JoinColumn(name = "role_id")
@@ -60,6 +60,14 @@ public class User implements UserDetails {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Review getReview() {
+        return review;
+    }
+
+    public void setReview(Review review) {
+        this.review = review;
     }
 
     @Override
