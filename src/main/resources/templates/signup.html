@@ -8,9 +8,10 @@
 <h1>Signup for app</h1>
 <form action="/signup" method="post" th:object="${user}">
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-
+    <label th:for="username">Username</label>
     <input type="text" th:field="*{username}" />
     <br/>
+    <label th:for="password">PassWord</label>
     <input type="password" th:field="*{password}"/>
     <br/>
     <input type="submit" value="signup" />

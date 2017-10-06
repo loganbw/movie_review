@@ -60,24 +60,24 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .and()
                 .formLogin()
-                .loginPage("/login")
+                .loginPage("/")
                 .successHandler(successHandler())
                 .failureHandler(failureHandler())
                 .and()
                 .logout()
                 .permitAll()
-                .logoutSuccessUrl("/login");
+                .logoutSuccessUrl("/");
     }
 
     private AuthenticationSuccessHandler successHandler(){
         return (request, response, authentication) -> {
-            response.sendRedirect("/");
+            response.sendRedirect("/home");
         };
     }
     private AuthenticationFailureHandler failureHandler(){
         return (request, response, exception) ->{
             request.getSession().setAttribute("error", "cannot login");
-            response.sendRedirect("/login");
+            response.sendRedirect("/");
         };
     }
 }

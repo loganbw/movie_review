@@ -9,7 +9,7 @@
     <p th:text="${errors}"></p>
 </div>
 
-<form action="/login" method="post" th:object="${user}">
+<form action="/" method="post" th:object="${user}">
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
     <label th:for="*{username}">Username</label>
     <input type="text" th:field="*{username}" />

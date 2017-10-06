@@ -9,11 +9,15 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private  String nameofuser;
+    private String nameofuser;
     private int rating;
     private int age;
     private String gender;
     private String occupation;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private  User user;
 
     @ManyToOne
     @JoinColumn(name = "movie_id")
@@ -35,6 +39,14 @@ public class Review {
         this.id = id;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public String getNameofuser() {
         return nameofuser;
     }
@@ -42,7 +54,6 @@ public class Review {
     public void setNameofuser(String nameofuser) {
         this.nameofuser = nameofuser;
     }
-
 
     public int getRating() {
         return rating;

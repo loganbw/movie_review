@@ -23,12 +23,19 @@ public class User implements UserDetails {
     private boolean active;
 
     @ManyToOne
-    @JoinColumn(name = "review_id")
-    private Review review;
-
-    @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
+
+    @OneToMany(mappedBy = "user")
+    private  List<Review> reviews;
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
 
     public long getId() {
         return id;
@@ -62,13 +69,6 @@ public class User implements UserDetails {
         this.role = role;
     }
 
-    public Review getReview() {
-        return review;
-    }
-
-    public void setReview(Review review) {
-        this.review = review;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -36,7 +36,7 @@ public class UserController {
         user.setRole(userRole);
         user.setActive(true);
         userDao.save(user);
-        return "redirect:/login";
+        return "redirect:/";
     }
 
 }

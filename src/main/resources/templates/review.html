@@ -11,11 +11,13 @@
 <h3 th:text="${movie.title}"></h3>
 <form th:action="@{'/review/' + ${movie.id}}" th:object="${reviews}"  method="post">
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-    <label th:for="nameofuser">Your name</label>
-    <input type="text" th:field="*{nameofuser}" label="Your name" />
+    <label th:for="rating">Your rating</label>
     <input type="text" th:field="*{rating}" label="your rating"/>
+    <label th:for="age">Your Age</label>
     <input type="text" th:field="*{age}" placeholder="your age"/>
+    <label th:for="gender">Your Gender</label>
     <input type="text" th:field="*{gender}" placeholder="your gender"/>
+    <label th:for="occupation">Your Job</label>
     <input type="text" th:field="*{occupation}" placeholder="your job" />
     <input type="submit" value="Leave that review!"/>
 </form>

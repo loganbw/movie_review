@@ -9,10 +9,7 @@ import com.logan.movie_review.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
@@ -25,7 +22,7 @@ public class MovieController {
     @Autowired
     private UserDao userDao;
 
-    @RequestMapping(value = "/")
+    @RequestMapping(value = "/home")
     public String movieReviewer(Model model, Principal principal) {
         User me = userDao.findByUsername(principal.getName());
         model.addAttribute("movies", movieDao.findAll());
@@ -41,7 +38,7 @@ public class MovieController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String addMovie(@ModelAttribute Movie newMovie) {
         movieDao.save(newMovie);
-        return "redirect:/";
+        return "redirect:/home";
     }
 
     @RequestMapping(value = "/info/{movieId}")
@@ -55,12 +52,14 @@ public class MovieController {
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     public String update(@ModelAttribute Movie updateMovie) {
         movieDao.save(updateMovie);
-        return "redirect:/";
+        return "redirect:/home";
     }
 
     @RequestMapping(value = "/review/{movieId}")
     public String review(Model model,
+                         Principal principal,
                          @PathVariable("movieId") long movieId) {
+        User me = userDao.findByUsername(principal.getName());
         Movie findMovie = movieDao.findOne(movieId);
         model.addAttribute("reviews", new Review());
         model.addAttribute("movie", findMovie);
@@ -69,10 +68,23 @@ public class MovieController {
 
     @RequestMapping(value = "/review/{movieId}", method = RequestMethod.POST)
     public String addreview(Model model, @ModelAttribute Review review,
+                            @RequestParam("rating") int rating,
+            Principal principal,
             @PathVariable("movieId")long movieId) {
+        User me = userDao.findByUsername(principal.getName());
+        for (Review reviews : me.getReviews()) {
+            if (reviews.getMovie().getId() == movieId && review.getUser() == me) {
+                return "redirect:/reviews/" + movieId;
+            }
+        }
+        Review newReview = new Review();
         Movie movie = movieDao.findOne(movieId);
-        review.setMovie(movie);
-        reviewDao.save(review);
-        return "redirect:/";
-    }
+        newReview.setUser(me);
+        newReview.setMovie(movie);
+        newReview.setNameofuser(me.getUsername());
+        newReview.setRating(rating);
+        reviewDao.save(newReview);
+        return "redirect:/home";
+        }
+
 }
