@@ -2,8 +2,10 @@ package com.logan.movie_review.controllers;
 
 import com.logan.movie_review.dao.MovieDao;
 import com.logan.movie_review.dao.ReviewDao;
+import com.logan.movie_review.dao.UserDao;
 import com.logan.movie_review.models.Movie;
 import com.logan.movie_review.models.Review;
+import com.logan.movie_review.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,16 +14,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.security.Principal;
+
 @Controller
 public class MovieController {
     @Autowired
     private MovieDao movieDao;
     @Autowired
     private ReviewDao reviewDao;
-
+    @Autowired
+    private UserDao userDao;
 
     @RequestMapping(value = "/")
-    public String movieReviewer(Model model) {
+    public String movieReviewer(Model model, Principal principal) {
+        User me = userDao.findByUsername(principal.getName());
         model.addAttribute("movies", movieDao.findAll());
         return "list";
     }

@@ -11,6 +11,8 @@
 <h1 th:text="${movie.title}"></h1>
 
 <form th:action="@{'/update/' + ${movie.id}}" th:object="${movie}" method="post">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
     <input type="hidden" th:field="*{title}" />
     <input type="text" th:field="*{genre}"/>
     <br/>

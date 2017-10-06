@@ -10,6 +10,8 @@
 <h1>Tell us what you think.</h1>
 <h3 th:text="${movie.title}"></h3>
 <form th:action="@{'/review/' + ${movie.id}}" th:object="${reviews}"  method="post">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
     <input type="text" th:field="*{nameofuser}" label="Your name" />
     <input type="text" th:field="*{rating}" label="your rating"/>
     <input type="text" th:field="*{age}" placeholder="your age"/>

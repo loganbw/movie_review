@@ -11,7 +11,12 @@
    <h1>Rotten Potato</h1>
 </header>
 <h2>Movie List!</h2>
-<div class="list">
+    <form action="/logout" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <input type="submit" value="logout"/>
+    </form>
+
+    <div class="list">
     <div th:each=" movies : ${movies}">
         <div class="movie">
             <div th:text="${movies.title}"></div>
@@ -19,6 +24,8 @@
             <div><a th:href="${movies.imbdlink}">IMBD Link!</a></div>
             <div th:text="${movies.releasedate}"></div>
             <form th:action="@{'/info/' + ${movies.id}}">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
                 <input type="submit"  class="btn btn-info" value="Details"/>
             </form>
 
